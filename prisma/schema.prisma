@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,27 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  password  String?
   phone     String?
   createdAt DateTime @default(now())
 
-  bikes     Bike[]
+  bikes Bike[]
 }
 
 model Bike {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   userId         Int
   brand          String
   model          String
-  registrationNo String   @unique
+  registrationNo String    @unique
   purchaseDate   DateTime?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
 
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   services Service[]
 }
 
@@ -40,29 +38,29 @@ model ServiceCenter {
   phone     String?
   createdAt DateTime @default(now())
 
-  services  Service[]
+  services Service[]
 }
 
 model Service {
-  id             Int       @id @default(autoincrement())
-  bikeId         Int
-  centerId       Int?
-  serviceDate    DateTime
+  id              Int      @id @default(autoincrement())
+  bikeId          Int
+  centerId        Int?
+  serviceDate     DateTime
   odometerReading Int?
-  remarks        String?
-  createdAt      DateTime  @default(now())
+  remarks         String?
+  createdAt       DateTime @default(now())
 
-  bike        Bike          @relation(fields: [bikeId], references: [id], onDelete: Cascade)
+  bike          Bike           @relation(fields: [bikeId], references: [id], onDelete: Cascade)
   serviceCenter ServiceCenter? @relation(fields: [centerId], references: [id], onDelete: SetNull)
-  items       ServiceItem[]
+  items         ServiceItem[]
 }
 
 model ServiceItem {
-  id        Int      @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   serviceId Int
   itemName  String
-  cost      Float    @default(0.0)
-  status    String   @default("Completed")
+  cost      Float  @default(0.0)
+  status    String @default("Completed")
 
-  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 }

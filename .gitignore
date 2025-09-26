@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/moto-pulse-firebase-adminsdk-fbsvc-54dc3558eb.json
 /.pnp
 .pnp.*
 .yarn/*
