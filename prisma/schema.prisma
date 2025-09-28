@@ -13,6 +13,7 @@ model User {
   email     String   @unique
   password  String?
   phone     String?
+  PhotoUrl  String?
   createdAt DateTime @default(now())
 
   bikes Bike[]

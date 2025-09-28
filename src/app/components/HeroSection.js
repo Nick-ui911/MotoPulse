@@ -48,7 +48,7 @@ export default function HeroSection() {
       >
         {/* Get Started Button */}
         {!user && (
-          <button className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 sm:hover:scale-110 hover:shadow-red-500/50 overflow-hidden transform hover:-translate-y-1">
+          <button onClick={() => router.push("/login")} className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 sm:hover:scale-110 hover:shadow-red-500/50 overflow-hidden transform hover:-translate-y-1">
             <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-400 to-red-600 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 -z-10" />
             <span className="relative flex items-center justify-center gap-2">

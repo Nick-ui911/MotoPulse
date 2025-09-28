@@ -2,12 +2,11 @@ import { NextResponse } from "next/server";
 import { adminAuth } from "@/lib/firebaseAdmin";
 import { prisma } from "@/lib/prisma";
 import { signJwt } from "@/lib/jwt";
-import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
 export async function POST(req) {
   try {
-    const { idToken } = await req.json();
+    const { idToken,PhotoUrl } = await req.json();
 
     const decoded = await adminAuth.verifyIdToken(idToken);
     const email = decoded?.email;
@@ -28,6 +27,7 @@ export async function POST(req) {
           email,
           password: null,
           phone: null,
+          PhotoUrl: PhotoUrl,
         },
       });
      

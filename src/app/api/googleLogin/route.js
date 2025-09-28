@@ -2,6 +2,7 @@ import { adminAuth } from "@/lib/firebaseAdmin";
 import { signJwt } from "@/lib/jwt";
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {

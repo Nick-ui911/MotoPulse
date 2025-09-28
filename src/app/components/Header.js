@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/Redux/userSlice";
+import { clearUser, setUser } from "@/Redux/userSlice";
+import { usePathname, useRouter } from "next/navigation";
+import { BASE_URL } from "@/constants/apiUrl";
+import axios from "axios";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,16 +13,8 @@ export default function Header() {
   const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const dummyUser = {
-  id: "12345",
-  name: "John Doe",
-  email: "johndoe@example.com",
-  avatar: "https://i.pravatar.cc/150?img=3", // random avatar
-};
-
-  const loginDummy = () => {
-    dispatch(setUser(dummyUser));
-  };
+  const router = useRouter();
+  const pathname = usePathname();
   useEffect(() => {
     setIsLoaded(true);
 
@@ -39,10 +34,19 @@ export default function Header() {
     { name: "WorkShops", href: "/WorkShops" },
   ];
 
-  const handleLogout = () => {
+  const handleLogout = async (e) => {
+    e.preventDefault();
     setIsMobileMenuOpen(false);
-    // dispatch logout action here if needed
+  
+    try {
+      await axios.post(BASE_URL + "/logout"); // logout request
+      dispatch(clearUser());
+      router.push("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
+  
 
   return (
     <header
@@ -119,10 +123,14 @@ export default function Header() {
                 </div>
               </>
             ) : (
-              <button className="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg transition-all duration-300"
-              onClick={loginDummy}>
-                Login
-              </button>
+              pathname !== "/login" && (
+                <button
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg transition-all duration-300"
+                  onClick={() => router.push("/login")}
+                >
+                  Login
+                </button>
+              )
             )}
 
             {/* Mobile Menu Toggle */}
