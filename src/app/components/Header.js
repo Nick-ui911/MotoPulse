@@ -28,6 +28,7 @@ export default function Header() {
 
   const navItems = [
     { name: "Home", href: "/" },
+    { name: "Profile", href: "/profile" },
     { name: "My Bikes", href: "/MyBikes" },
     { name: "Services", href: "/Services" },
     { name: "Reminders", href: "/Reminders" },
@@ -37,7 +38,7 @@ export default function Header() {
   const handleLogout = async (e) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-  
+
     try {
       await axios.post(BASE_URL + "/logout"); // logout request
       dispatch(clearUser());
@@ -46,7 +47,6 @@ export default function Header() {
       console.error("Logout failed:", err);
     }
   };
-  
 
   return (
     <header
@@ -58,8 +58,8 @@ export default function Header() {
     >
       <nav
         className={`w-full px-4 sm:px-6 lg:px-8 py-4 transition-all duration-300 ${
-    isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
-  }`}
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+        }`}
       >
         <div className="flex items-center justify-between w-full">
           {/* Left: Logo */}
@@ -70,7 +70,9 @@ export default function Header() {
             >
               <div className="relative">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white font-black text-lg sm:text-xl">M</span>
+                  <span className="text-white font-black text-lg sm:text-xl">
+                    M
+                  </span>
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-red-400 rounded-full animate-pulse" />
               </div>
@@ -111,9 +113,13 @@ export default function Header() {
             {user ? (
               <>
                 <div className="hidden sm:flex items-center space-x-2">
-                  <span className="text-white/90 text-xs sm:text-sm">
+                  <Link
+                    href="/profile"
+                    className="text-white/90 text-xs sm:text-sm hover:text-white underline underline-offset-4 decoration-transparent hover:decoration-red-500 transition-colors"
+                    title="Go to your profile"
+                  >
                     Welcome, {user.name || user.email || "User"}
-                  </span>
+                  </Link>
                   <button
                     onClick={handleLogout}
                     className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white text-xs sm:text-sm font-medium rounded-lg shadow-lg hover:shadow-gray-500/25 transition-all duration-300"
@@ -187,12 +193,14 @@ export default function Header() {
                 </Link>
               ))}
               <div className="border-t border-white/10 pt-3 sm:pt-4">
-                <div className="text-white/70 text-xs sm:text-sm mb-2">
-                  {user.name || user.email || "User"}
-                </div>
+                <Link href="/profile">
+                  <div className="text-white/70 text-xs sm:text-sm mb-2">
+                    {user.name || user.email || "User"}
+                  </div>
+                </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg transition-all duration-300"
+                  className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 backdrop-blur-sm hover:bg-gray-700/80 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg transition-all duration-300"
                 >
                   Logout
                 </button>

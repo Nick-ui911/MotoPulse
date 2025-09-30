@@ -3,13 +3,10 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-
-export const authUser = async () => {
+export const userAuth = async () => {
   try {
-   
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
-
 
     if (!token) {
       return {
@@ -47,8 +44,11 @@ export const authUser = async () => {
       };
     }
 
-    // Fetch user from database
-    const user = await prisma.user.findUnique({ where: { email: userData.email } });
+    // Fetch user from database including related bikes
+    const user = await prisma.user.findUnique({
+      where: { email: userData.email },
+      include: { bikes: true },
+    });
 
     if (!user) {
       return {

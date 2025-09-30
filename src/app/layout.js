@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ReduxProvider from "./components/ReduxProvider";
+import StayLoginInReload from "./components/StayLoginInReload";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${orbitron.variable} ${poppins.variable} antialiased`}>
         <ReduxProvider>
+          <StayLoginInReload/>
           <Header />
           {children}
           <Footer />
