@@ -414,6 +414,7 @@ export default function AuthComponent() {
               {isLoginView && (
                 <div className="flex justify-end">
                   <button
+                    onClick={() => router.push("/forgotPassword")}
                     type="button"
                     className="text-xs text-red-400 hover:text-red-300 transition-colors hover:underline"
                   >

@@ -20,13 +20,11 @@ export default function StayLoginInReload() {
           signal: controller.signal, // cancelable
         });
 
-        const apiData = res?.data?.data;
-        const normalizedUser = apiData?.user || apiData;
-
-        if (normalizedUser) {
-          dispatch(setUser(normalizedUser));
+        const user = res?.data?.data?.user;
+        if (user) {
+          dispatch(setUser(user));
         } else {
-          dispatch(clearUser());
+          dispatch(clearUser()); // no user found
         }
       } catch (err) {
         if (axios.isCancel(err)) return; // ignore canceled

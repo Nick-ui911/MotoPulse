@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/constants/apiUrl";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,17 +35,18 @@ export default function ProfilePage() {
           signal: controller.signal,
           timeout: 8000,
         });
-        const apiData = res?.data?.data;
-        const normalizedUser = apiData?.user || apiData;
-        if (normalizedUser) dispatch(setUser(normalizedUser));
+        const apiData = res?.data?.data?.user;
+
+        // Only dispatch if user object has _id (or any key you know must exist)
+        if (apiData && apiData._id) {
+          dispatch(setUser(apiData));
+        } else {
+          dispatch(setUser(null)); // clear user in store
+        }
       } catch (error) {
         if (axios.isCancel(error)) return;
         console.error("Failed to load profile:", error);
         setError("Failed to load profile");
-        if (error.response?.status === 401) {
-          router.push("/login");
-          return;
-        }
       } finally {
         setLoading(false);
       }
@@ -56,7 +57,6 @@ export default function ProfilePage() {
 
   // Memoized navigation handlers
   const handleEditProfile = () => router.push("/profileEdit");
-  const handleUpdatePassword = () => router.push("/updatePassword");
   const handleAddPassword = () => router.push("/addPassword");
 
   if (loading || !user) {
@@ -125,15 +125,7 @@ export default function ProfilePage() {
                   <Edit className="w-4 h-4" />
                   Edit
                 </button>
-                {user?.password ? (
-                  <button
-                    onClick={handleUpdatePassword}
-                    className="bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded-lg transition border border-red-600/30 flex items-center gap-2"
-                  >
-                    <Key className="w-4 h-4" />
-                    Change Password
-                  </button>
-                ) : (
+                {!user?.password &&  (
                   <button
                     onClick={handleAddPassword}
                     className="bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded-lg transition border border-red-600/30 flex items-center gap-2"

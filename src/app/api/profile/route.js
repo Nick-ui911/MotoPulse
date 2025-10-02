@@ -2,14 +2,17 @@ import { NextResponse } from "next/server";
 import { userAuth } from "@/middleware/userAuth";
 
 export async function GET(req) {
-
   try {
     const user = await userAuth(req);
+
     if (!user) {
-      return NextResponse.json({
-        message: "User Not Found",
-        data: user,
-      });
+      return NextResponse.json(
+        { 
+          message: "User Not Found",
+          data: null    // 👈 important
+        },
+        { status: 401 }
+      );
     }
 
     return NextResponse.json({
@@ -21,8 +24,9 @@ export async function GET(req) {
     return NextResponse.json(
       {
         message: "internal server error",
+        data: null,   // 👈 keep consistent
       },
-      { status: 400 }
+      { status: 500 }
     );
   }
 }
