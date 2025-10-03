@@ -11,4 +11,4 @@ const DEVELOPMENT_WEB_URL = 'http://localhost:3000';
 
 // Export URLs based on environment
 export const BASE_URL = isProduction ? PRODUCTION_API_URL : DEVELOPMENT_API_URL;
-export const WEB_URL = isProduction ? PRODUCTION_WEB_URL : DEVELOPMENT_WEB_URL;
+export const WEB_URL = isProduction ? PRODUCTION_WEB_URL : DEVELOPMENT_WEB_URL; 
