@@ -2,8 +2,8 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Production URLs - Update these with your actual production domain
-const PRODUCTION_API_URL = 'https://your-production-domain.com/api';
-const PRODUCTION_WEB_URL = 'https://your-production-domain.com';
+const PRODUCTION_API_URL = 'https://moto-pulse.vercel.app/api';
+const PRODUCTION_WEB_URL = 'https://moto-pulse.vercel.app';
 
 // Development URLs
 const DEVELOPMENT_API_URL = 'http://localhost:3000/api';
