@@ -122,6 +122,8 @@ export default function TestimonialsSection() {
                 <Image
                   src={testimonial.image}
                   alt={testimonial.name}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover border-2 border-red-500"
                 />
                 <div className="ml-4">
@@ -148,8 +150,8 @@ export default function TestimonialsSection() {
               <span className="text-red-500">Motorcycle Brands</span>
             </h3>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              We&apos;re proud to partner with India&apos;s top motorcycle manufacturers
-              and service centers
+              We&apos;re proud to partner with India&apos;s top motorcycle
+              manufacturers and service centers
             </p>
           </div>
 
@@ -163,6 +165,8 @@ export default function TestimonialsSection() {
                 <Image
                   src={partner.logo}
                   alt={partner.name}
+                  width={120} // pick an appropriate width
+                  height={48} // 12 * 4 = 48px
                   className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 group-hover:scale-110 opacity-70 hover:opacity-100"
                 />
               </div>
