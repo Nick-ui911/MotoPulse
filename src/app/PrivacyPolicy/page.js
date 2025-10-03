@@ -117,7 +117,7 @@ const PrivacyPolicy = () => {
                 </svg>
               </div>
               <h3 className="text-white font-semibold mb-2">Transparency</h3>
-              <p className="text-gray-300 text-sm">Clear explanations of what data we collect and exactly how it's used</p>
+              <p className="text-gray-300 text-sm">Clear explanations of what data we collect and exactly how it&apos;s used</p>
             </div>
           </div>
         </div>
@@ -308,7 +308,7 @@ const PrivacyPolicy = () => {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-red-900/20 to-red-800/20 backdrop-blur-sm border border-red-500/30">
           <h2 className="text-3xl font-bold text-white mb-4">Exercise Your Privacy Rights</h2>
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-            Ready to access, correct, or delete your data? Have questions about our privacy practices? We're here to help and respond within 30 days.
+            Ready to access, correct, or delete your data? Have questions about our privacy practices? We&apos;re here to help and respond within 30 days.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 

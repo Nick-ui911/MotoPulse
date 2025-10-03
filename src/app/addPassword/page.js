@@ -365,7 +365,7 @@ export default function AddPasswordPage() {
                       <>
                         <X className="w-3 h-3 text-red-400 mr-2" />
                         <span className="text-red-400">
-                          Passwords don't match
+                          Passwords don&apos;t match
                         </span>
                       </>
                     )}

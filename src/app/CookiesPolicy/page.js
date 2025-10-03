@@ -216,7 +216,7 @@ const CookiesPolicy = () => {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50">
           <h3 className="text-2xl font-bold text-white mb-4">Questions About Our Cookie Policy?</h3>
           <p className="text-gray-300 mb-6">
-            If you have any questions about how we use cookies or this policy, we're here to help.
+            If you have any questions about how we use cookies or this policy, we&apos;re here to help.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link 

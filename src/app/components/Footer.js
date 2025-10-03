@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
           
           <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
-            Track your bike's maintenance, get service reminders, and ride stress-free with cutting-edge technology.
+            Track your bike&apos;s maintenance, get service reminders, and ride stress-free with cutting-edge technology.
           </p>
           
           {/* Feature highlights */}

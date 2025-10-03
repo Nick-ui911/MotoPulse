@@ -67,13 +67,13 @@ export default function ForgotPasswordPage() {
 
               <h1 className="text-3xl font-bold text-white mb-2">Check Your Email</h1>
               <p className="text-zinc-400 mb-6">
-                We've sent a password reset link to<br />
+                We&apos;ve sent a password reset link to<br />
                 <span className="text-white font-medium">{email}</span>
               </p>
 
               <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 mb-6 text-left">
                 <p className="text-sm text-zinc-300 mb-2">
-                  Didn't receive the email?
+                  Didn&apos;t receive the email?
                 </p>
                 <ul className="text-xs text-zinc-500 space-y-1 list-disc list-inside">
                   <li>Check your spam or junk folder</li>
@@ -128,7 +128,7 @@ export default function ForgotPasswordPage() {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-white mb-2">Forgot Password?</h1>
-              <p className="text-zinc-400">No worries, we'll send you reset instructions</p>
+              <p className="text-zinc-400">No worries, we&apos;ll send you reset instructions</p>
             </div>
 
             {/* Error message */}

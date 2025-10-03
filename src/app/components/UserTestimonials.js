@@ -1,4 +1,5 @@
 import { Star, Quote } from "lucide-react";
+import Image from "next/image";
 
 export default function TestimonialsSection() {
   const testimonials = [
@@ -7,37 +8,41 @@ export default function TestimonialsSection() {
       name: "Alex Rodriguez",
       location: "Mumbai, India",
       rating: 5,
-      review: "MotoPulse saved me hours of searching! Found a trusted mechanic nearby who fixed my Royal Enfield perfectly. The booking system is seamless.",
+      review:
+        "MotoPulse saved me hours of searching! Found a trusted mechanic nearby who fixed my Royal Enfield perfectly. The booking system is seamless.",
       image: "/user1image.jpg",
-      bike: "Royal Enfield Classic 350"
+      bike: "Royal Enfield Classic 350",
     },
     {
       id: 2,
       name: "Priya Sharma",
       location: "Bangalore, India",
       rating: 5,
-      review: "Best motorcycle service app! Quick service, transparent pricing, and excellent communication. My Yamaha runs like new after their maintenance.",
+      review:
+        "Best motorcycle service app! Quick service, transparent pricing, and excellent communication. My Yamaha runs like new after their maintenance.",
       image: "/user2image.jpg",
-      bike: "Yamaha MT-15"
+      bike: "Yamaha MT-15",
     },
     {
       id: 3,
       name: "Rajesh Kumar",
       location: "Delhi, India",
       rating: 5,
-      review: "Professional service at fair prices. The mechanics are skilled and honest. MotoPulse has become my go-to for all motorcycle needs.",
+      review:
+        "Professional service at fair prices. The mechanics are skilled and honest. MotoPulse has become my go-to for all motorcycle needs.",
       image: "/user4image.jpeg",
-      bike: "Honda CB Hornet 160R"
+      bike: "Honda CB Hornet 160R",
     },
     {
       id: 4,
       name: "Sneha Patel",
       location: "Pune, India",
       rating: 4,
-      review: "Great experience! Emergency breakdown service was quick and efficient. The app made everything so convenient during a stressful situation.",
+      review:
+        "Great experience! Emergency breakdown service was quick and efficient. The app made everything so convenient during a stressful situation.",
       image: "/user3image.webp",
-      bike: "TVS Apache RTR 200"
-    }
+      bike: "TVS Apache RTR 200",
+    },
   ];
 
   const partners = [
@@ -48,7 +53,7 @@ export default function TestimonialsSection() {
     { name: "Yamaha", logo: "/yamahalogo.jpg" },
     { name: "Royal Enfield", logo: "/relogo.png" },
     { name: "KTM", logo: "/ktmlogo.png" },
-    { name: "Suzuki", logo: "/suzukilogo.png" }
+    { name: "Suzuki", logo: "/suzukilogo.png" },
   ];
 
   const renderStars = (rating) => {
@@ -56,7 +61,7 @@ export default function TestimonialsSection() {
       <Star
         key={index}
         className={`w-4 h-4 ${
-          index < rating ? 'fill-red-500 text-red-500' : 'text-gray-300'
+          index < rating ? "fill-red-500 text-red-500" : "text-gray-300"
         }`}
       />
     ));
@@ -71,7 +76,8 @@ export default function TestimonialsSection() {
             What Our <span className="text-red-500">Riders</span> Say
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Join thousands of satisfied motorcycle owners who trust MotoPulse for their service needs
+            Join thousands of satisfied motorcycle owners who trust MotoPulse
+            for their service needs
           </p>
           <div className="mt-8 flex justify-center items-center space-x-8 text-white">
             <div className="text-center">
@@ -100,7 +106,7 @@ export default function TestimonialsSection() {
             >
               {/* Quote Icon */}
               <Quote className="w-8 h-8 text-red-500 mb-4" />
-              
+
               {/* Rating */}
               <div className="flex items-center mb-4">
                 {renderStars(testimonial.rating)}
@@ -108,20 +114,26 @@ export default function TestimonialsSection() {
 
               {/* Review Text */}
               <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                "{testimonial.review}"
+                &quot;{testimonial.review}&quot;
               </p>
 
               {/* User Info */}
               <div className="flex items-center">
-                <img
+                <Image
                   src={testimonial.image}
                   alt={testimonial.name}
                   className="w-12 h-12 rounded-full object-cover border-2 border-red-500"
                 />
                 <div className="ml-4">
-                  <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                  <p className="text-gray-400 text-xs">{testimonial.location}</p>
-                  <p className="text-red-500 text-xs font-medium">{testimonial.bike}</p>
+                  <h4 className="text-white font-semibold text-sm">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-gray-400 text-xs">
+                    {testimonial.location}
+                  </p>
+                  <p className="text-red-500 text-xs font-medium">
+                    {testimonial.bike}
+                  </p>
                 </div>
               </div>
             </div>
@@ -132,10 +144,12 @@ export default function TestimonialsSection() {
         <div className="bg-gray-900 rounded-3xl p-8 md:p-12 border border-gray-800">
           <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Trusted by Leading <span className="text-red-500">Motorcycle Brands</span>
+              Trusted by Leading{" "}
+              <span className="text-red-500">Motorcycle Brands</span>
             </h3>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              We're proud to partner with India's top motorcycle manufacturers and service centers
+              We&apos;re proud to partner with India&apos;s top motorcycle manufacturers
+              and service centers
             </p>
           </div>
 
@@ -146,7 +160,7 @@ export default function TestimonialsSection() {
                 key={index}
                 className="flex items-center justify-center group"
               >
-                <img
+                <Image
                   src={partner.logo}
                   alt={partner.name}
                   className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 group-hover:scale-110 opacity-70 hover:opacity-100"
@@ -161,16 +175,25 @@ export default function TestimonialsSection() {
               <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Star className="w-6 h-6 text-white" />
               </div>
-              <h4 className="text-white font-semibold mb-2">Certified Mechanics</h4>
-              <p className="text-gray-400 text-sm">All our partner mechanics are certified and background-verified professionals</p>
+              <h4 className="text-white font-semibold mb-2">
+                Certified Mechanics
+              </h4>
+              <p className="text-gray-400 text-sm">
+                All our partner mechanics are certified and background-verified
+                professionals
+              </p>
             </div>
 
             <div className="text-center p-6 bg-black rounded-xl border border-gray-800">
               <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Quote className="w-6 h-6 text-white" />
               </div>
-              <h4 className="text-white font-semibold mb-2">Quality Guarantee</h4>
-              <p className="text-gray-400 text-sm">30-day warranty on all services with 100% satisfaction guarantee</p>
+              <h4 className="text-white font-semibold mb-2">
+                Quality Guarantee
+              </h4>
+              <p className="text-gray-400 text-sm">
+                30-day warranty on all services with 100% satisfaction guarantee
+              </p>
             </div>
 
             <div className="text-center p-6 bg-black rounded-xl border border-gray-800">
@@ -178,7 +201,9 @@ export default function TestimonialsSection() {
                 <Star className="w-6 h-6 text-white" />
               </div>
               <h4 className="text-white font-semibold mb-2">Secure Payments</h4>
-              <p className="text-gray-400 text-sm">Safe and secure payment processing with multiple payment options</p>
+              <p className="text-gray-400 text-sm">
+                Safe and secure payment processing with multiple payment options
+              </p>
             </div>
           </div>
         </div>
