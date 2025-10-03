@@ -20,7 +20,7 @@ export async function middleware(req) {
   if (
     pathname === "/" ||
     pathname.startsWith("/login") ||
-    pathname.startsWith("/ResetPassword") ||
+    pathname.startsWith("/reset-password") ||
     pathname.startsWith("/forgotPassword") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||

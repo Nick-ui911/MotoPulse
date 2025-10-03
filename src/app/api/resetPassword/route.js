@@ -8,7 +8,7 @@ export async function POST(req) {
   if (!token || !password) return NextResponse.json({ message: "Invalid request" }, { status: 400 });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_RESET_SECRET);
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await prisma.user.update({
