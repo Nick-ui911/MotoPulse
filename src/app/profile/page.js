@@ -21,6 +21,7 @@ export default function ProfilePage() {
   useEffect(() => {
     // If user already in Redux, skip API call
     if (user) {
+      console.log(user);
       setLoading(false);
       return;
     }
@@ -36,6 +37,7 @@ export default function ProfilePage() {
           timeout: 8000,
         });
         const apiData = res?.data?.data?.user;
+        console.log(apiData);
 
         // Only dispatch if user object has _id (or any key you know must exist)
         if (apiData && apiData._id) {
@@ -92,9 +94,9 @@ export default function ProfilePage() {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               {/* Avatar */}
               <div className="relative">
-                {user?.photoUrl ? (
+                {user?.PhotoUrl ? (
                   <Image
-                    src={user.photoUrl}
+                    src={user.PhotoUrl}
                     alt={user.name}
                     width={120}
                     height={120}
@@ -125,7 +127,7 @@ export default function ProfilePage() {
                   <Edit className="w-4 h-4" />
                   Edit
                 </button>
-                {!user?.password &&  (
+                {!user?.password && (
                   <button
                     onClick={handleAddPassword}
                     className="bg-neutral-800 hover:bg-neutral-700 text-white px-4 py-2 rounded-lg transition border border-red-600/30 flex items-center gap-2"
@@ -155,56 +157,58 @@ export default function ProfilePage() {
                 <InfoCard
                   icon={<Phone className="w-5 h-5" />}
                   label="Mobile"
-                  value={user?.mobileNo || "Not provided"}
+                  value={user?.phone || "Not provided"}
                 />
               </div>
             </div>
 
             {/* Bikes Section */}
-            {Array.isArray(user?.bikes) && (
+            {user?.bikes && user.bikes.length > 0 ? (
               <div>
                 <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                   <div className="w-1 h-6 bg-red-600 rounded"></div>
                   My Bikes
                 </h2>
-                {user.bikes.length === 0 ? (
-                  <div className="bg-neutral-800 border border-red-600/20 rounded-lg p-6 text-center">
-                    <Bike className="w-12 h-12 text-red-600 mx-auto mb-3" />
-                    <p className="text-neutral-400">No bikes added yet</p>
-                  </div>
-                ) : (
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {user.bikes.map((bike) => {
-                      const purchase = bike?.purchaseDate
-                        ? new Date(bike.purchaseDate).toLocaleDateString(
-                            "en-US",
-                            { year: "numeric", month: "short", day: "numeric" }
-                          )
-                        : "N/A";
-                      return (
-                        <div
-                          key={bike.id}
-                          className="bg-neutral-800 border border-red-600/20 rounded-lg p-5 hover:border-red-600/40 transition"
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <h3 className="text-white font-semibold text-lg">
-                                {bike.brand} {bike.model}
-                              </h3>
-                              <p className="text-red-400 text-sm font-mono">
-                                {bike.registrationNo}
-                              </p>
-                            </div>
-                            <Bike className="w-6 h-6 text-red-600" />
+                <div className="grid md:grid-cols-2 gap-4">
+                  {user.bikes.map((bike) => {
+                    const purchase = bike?.purchaseDate
+                      ? new Date(bike.purchaseDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          }
+                        )
+                      : "N/A";
+                    return (
+                      <div
+                        key={bike.id}
+                        className="bg-neutral-800 border border-red-600/20 rounded-lg p-5 hover:border-red-600/40 transition"
+                      >
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <h3 className="text-white font-semibold text-lg">
+                              {bike.brand} {bike.model}
+                            </h3>
+                            <p className="text-red-400 text-sm font-mono">
+                              {bike.registrationNo}
+                            </p>
                           </div>
-                          <p className="text-neutral-400 text-sm">
-                            Purchased: {purchase}
-                          </p>
+                          <Bike className="w-6 h-6 text-red-600" />
                         </div>
-                      );
-                    })}
-                  </div>
-                )}
+                        <p className="text-neutral-400 text-sm">
+                          Purchased: {purchase}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="bg-neutral-800 border border-red-600/20 rounded-lg p-6 text-center">
+                <Bike className="w-12 h-12 text-red-600 mx-auto mb-3" />
+                <p className="text-neutral-400">No bikes added yet</p>
               </div>
             )}
           </div>
