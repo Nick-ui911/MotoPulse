@@ -40,7 +40,7 @@ export default function TestimonialsSection() {
       rating: 4,
       review:
         "Great experience! Emergency breakdown service was quick and efficient. The app made everything so convenient during a stressful situation.",
-      image: "/user3image.webp",
+      image: "/user3image.jpg",
       bike: "TVS Apache RTR 200",
     },
   ];

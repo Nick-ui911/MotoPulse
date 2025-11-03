@@ -1,21 +1,31 @@
+import dynamic from "next/dynamic";
 import HeroSection from "./components/HeroSection";
-import FeaturesSection from "./components/FeaturesSection";
-import TestimonialsSection from "./components/UserTestimonials";
+import Spinner from "./components/Spinner";
 
+// this is like React lazy loading and Suspense for the components so that the components are loaded only when they are needed
+
+const FeaturesSection = dynamic(() => import("./components/FeaturesSection"), {
+  loading: () => <Spinner />,
+});
+const TestimonialsSection = dynamic(
+  () => import("./components/UserTestimonials"),
+  {
+    loading: () => <Spinner />,
+  }
+);
 
 export default function Home() {
   return (
     <>
-    <HeroSection/>
-    <FeaturesSection/>
-    <TestimonialsSection/>
+      <HeroSection />
+      <FeaturesSection />
+      <TestimonialsSection />
     </>
-  )
-
+  );
 }
 // # Note
 
-// Here currently using all static data already so there is no need of getStaticProps here if you want to add real user testimonial and 
+// Here currently using all static data already so there is no need of getStaticProps here if you want to add real user testimonial and
 // want it to be static you can use getStaticProps method and use fetched data as props like :
 
 // export async function getStaticProps() {
