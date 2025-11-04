@@ -16,7 +16,10 @@ export async function POST(req) {
       return new Response("Invalid token", { status: 400 });
     }
 
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: { bikes: true }, // ✅ include related bikes
+    });
 
     if (!user) {
       return new Response("User not found", { status: 404 });
@@ -26,7 +29,7 @@ export async function POST(req) {
 
     const token = signJwt({ email: user.email });
 
-    const response = NextResponse.json({ user, token }, { status: 200 });
+
     const cookieStore = cookies();
     cookieStore.set({
       name: "token",
@@ -37,7 +40,7 @@ export async function POST(req) {
       path: "/",
     });
 
-    return response;
+    return NextResponse.json({ user, token }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);
     return new Response("Internal server error", { status: 500 });

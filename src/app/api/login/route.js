@@ -18,8 +18,10 @@ export async function POST(request) {
       );
     }
 
-    const user = await prisma.user.findUnique({ where: { email } });
-
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: { bikes: true }, // ✅ include related bikes
+    });
     if (!user) {
       return NextResponse.json(
         { error: "Invalid credentials" },
@@ -37,7 +39,7 @@ export async function POST(request) {
 
     const token = signJwt({ email: user.email });
 
-    const response = NextResponse.json({ user, token }, { status: 200 });
+  
     const cookieStore = await cookies();
     cookieStore.set({
       name: "token",
@@ -48,7 +50,7 @@ export async function POST(request) {
       path: "/",
     });
 
-    return response;
+    return NextResponse.json({ user, token }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(

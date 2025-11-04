@@ -147,22 +147,19 @@ export default function AuthComponent() {
     }
   };
 
-  // Google Login Function
-  const handleGoogleLogin = async () => {
-    setLoading(true); // Show loader
+// Google Login Function
+const handleGoogleLogin = async () => {
+  try {
+    setLoading(true);
+    
     const result = await signInWithPopup(auth, provider);
     const idToken = await result.user.getIdToken();
-    const { email, displayName: name, photoURL: photo } = result.user;
+    const { email } = result.user;
 
     const res = await axios.post(
       BASE_URL + "/googleLogin",
-      {
-        idToken,
-        email,
-      },
-      {
-        withCredentials: true,
-      }
+      { idToken, email },
+      { withCredentials: true }
     );
 
     dispatch(setUser(res?.data?.user));
@@ -171,24 +168,48 @@ export default function AuthComponent() {
     setSuccessMessage("Google Login Successful!");
     setShowSuccessMessage(true);
 
-    // Reset form after success
+    // Navigate after delay
     setTimeout(() => {
       setShowSuccessMessage(false);
-      setLoading(false); // Hide loader
-
-      // Navigate to homepage after successful signup
       router.push("/");
     }, 2000);
-    setLoading(false); // Hide loader
-  };
 
-  // Google Signup Function
-  const handleGoogleSignup = async () => {
-    setLoading(true); // Show loader
+  } catch (error) {
+    console.error("Google login error:", error);
+    
+    // Handle specific errors
+    if (error.response?.status === 404) {
+      setErrorMessage("Account not found. Please sign up first.");
+    } else if (error.response?.status === 400) {
+      setErrorMessage(error.response?.data?.error || "Invalid credentials");
+    } else if (error.code === "auth/popup-closed-by-user") {
+      setErrorMessage("Login cancelled");
+    } else if (error.code === "auth/network-request-failed") {
+      setErrorMessage("Network error. Please check your connection.");
+    } else {
+      setErrorMessage("Login failed. Please try again.");
+    }
+    
+    setShowErrorMessage(true);
+    
+    // Hide error after 3 seconds
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+    
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Google Signup Function
+const handleGoogleSignup = async () => {
+  try {
+    setLoading(true);
+    
     const result = await signInWithPopup(auth, provider);
     const idToken = await result.user.getIdToken();
-    const user = result.user;
-    const { displayName, email, photoURL } = user;
+    const { displayName, email, photoURL } = result.user;
 
     const response = await axios.post(
       BASE_URL + "/googleSignup",
@@ -199,22 +220,51 @@ export default function AuthComponent() {
     dispatch(setUser(response.data.user));
 
     // Show success message
-    setSuccessMessage(
-      "Google Account Connected! Account created successfully."
-    );
+    const message = response.data.isNewUser
+      ? "Google Account Connected! Account created successfully."
+      : "Welcome back! Signed in successfully.";
+    
+    setSuccessMessage(message);
     setShowSuccessMessage(true);
 
-    // Reset form after success
+    // Navigate after delay
     setTimeout(() => {
       setShowSuccessMessage(false);
-      setLoading(false); // Hide loader
-
-      // Navigate to homepage after successful signup
       router.push("/");
     }, 2000);
 
-    setLoading(false); // Hide loader
-  };
+  } catch (error) {
+    console.error("Google signup error:", error);
+    
+    // Handle specific errors
+    if (error.response?.status === 400) {
+      const errorMsg = error.response?.data?.error;
+      if (errorMsg === "Email already exists") {
+        setErrorMessage("Account exists. Please login instead.");
+      } else {
+        setErrorMessage(errorMsg || "Signup failed");
+      }
+    } else if (error.code === "auth/popup-closed-by-user") {
+      setErrorMessage("Signup cancelled");
+    } else if (error.code === "auth/network-request-failed") {
+      setErrorMessage("Network error. Please check your connection.");
+    } else if (error.code === "auth/account-exists-with-different-credential") {
+      setErrorMessage("Account exists with different sign-in method");
+    } else {
+      setErrorMessage("Signup failed. Please try again.");
+    }
+    
+    setShowErrorMessage(true);
+    
+    // Hide error after 3 seconds
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+    
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Handle Google auth based on current view
   const handleGoogleAuth = () => {

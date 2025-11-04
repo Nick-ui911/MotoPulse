@@ -37,10 +37,10 @@ export async function POST(request) {
         password: hashed,
         phone,
       },
+      include: { bikes: true }, // ✅ include related data
     });
 
     const token = signJwt({ email: user.email });
-    const response = NextResponse.json({ user, token }, { status: 201 });
     const cookieStore = await cookies();
     cookieStore.set({
       name: "token",
@@ -50,7 +50,7 @@ export async function POST(request) {
       secure: process.env.NODE_ENV === "production" ? true : false,
       path: "/",
     });
-    return response;
+    return NextResponse.json({ user, token }, { status: 201 });;
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json(

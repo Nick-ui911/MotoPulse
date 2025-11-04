@@ -1,55 +1,52 @@
-import { NextResponse } from "next/server";
-import { adminAuth } from "@/lib/firebaseAdmin";
-import { prisma } from "@/lib/prisma";
-import { signJwt } from "@/lib/jwt";
-import { cookies } from "next/headers";
-
 export async function POST(req) {
   try {
-    const { idToken,PhotoUrl } = await req.json();
+    const { idToken, PhotoUrl } = await req.json();
 
+    // Verify token
     const decoded = await adminAuth.verifyIdToken(idToken);
     const email = decoded?.email;
     const name = decoded?.name || decoded?.displayName || "Google User";
 
     if (!email) {
-      return new Response("Invalid token", { status: 400 });
+      return NextResponse.json({ error: "Invalid token" }, { status: 400 });
     }
 
-    let user = await prisma.user.findUnique({ where: { email } });
+    // Check if user exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "Email already exists" },
+        { status: 400 }
+      );
+    }
 
-    if (user) {
-        return new Response(JSON.stringify({ message: "Email already exists" }), { status: 400 });
-      }
-      user = await prisma.user.create({
-        data: {
-          name,
-          email,
-          password: null,
-          phone: null,
-          PhotoUrl: PhotoUrl,
-        },
-      });
-     
-    
+    // Create user
+    const user = await prisma.user.create({
+      data: { name, email, PhotoUrl },
+      include: { bikes: true },
+    });
 
+    // Generate token and set cookie
     const token = signJwt({ email: user.email });
-    const response = NextResponse.json(
-      { user, token },
-      { status: 200 }
-    );
-    const cookieStore = cookies();
+    
+    const cookieStore = await cookies();
     cookieStore.set({
       name: "token",
       value: token,
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60, // 7 days
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      maxAge: 7 * 24 * 60 * 60,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       path: "/",
     });
-    return response;
+
+    return NextResponse.json({ user, token }, { status: 200 });
+    
   } catch (error) {
     console.error("Google signup error:", error);
-    return new Response("Internal server error", { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create account" },
+      { status: 500 }
+    );
   }
 }
