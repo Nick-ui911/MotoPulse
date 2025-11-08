@@ -37,7 +37,6 @@ export default function ProfilePage() {
           timeout: 8000,
         });
         const apiData = res?.data?.data?.user;
-        console.log(apiData);
 
         // Only dispatch if user object has _id (or any key you know must exist)
         if (apiData && apiData._id) {

@@ -35,9 +35,12 @@ export default function MyBikesClient() {
               <div className="bg-red-950/50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bike className="w-10 h-10 text-red-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-300 mb-2">No bikes added yet</h3>
-              <p className="text-gray-500 mb-6">Start building your collection by adding your first bike</p>
-           
+              <h3 className="text-xl font-semibold text-gray-300 mb-2">
+                No bikes added yet
+              </h3>
+              <p className="text-gray-500 mb-6">
+                Start building your collection by adding your first bike
+              </p>
             </div>
           </div>
         ) : (
@@ -49,7 +52,7 @@ export default function MyBikesClient() {
               >
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/0 via-red-600/0 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                
+
                 <div className="relative z-10">
                   {/* Bike Icon Badge */}
                   <div className="absolute -top-3 -right-3 bg-red-600 rounded-full p-2 shadow-lg">
@@ -59,24 +62,30 @@ export default function MyBikesClient() {
                   <h2 className="text-2xl font-bold text-transparent bg-gradient-to-r from-red-400 to-red-600 bg-clip-text mb-4 pr-8">
                     {bike.brand} {bike.model}
                   </h2>
-                  
+
                   <div className="space-y-3">
                     <div className="flex items-start gap-2">
-                      <span className="text-red-500 font-semibold min-w-fit">Reg No:</span>
+                      <span className="text-red-500 font-semibold min-w-fit">
+                        Reg No:
+                      </span>
                       <span className="text-gray-300 font-mono bg-gray-800/50 px-3 py-1 rounded-lg border border-red-900/30">
                         {bike.registrationNo}
                       </span>
                     </div>
-                    
+
                     {bike.purchaseDate && (
                       <div className="flex items-center gap-2 text-gray-400">
                         <span className="text-red-600">📅</span>
                         <span className="text-sm">
-                          Purchased: {new Date(bike.purchaseDate).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                          })}
+                          Purchased:{" "}
+                          {new Date(bike.purchaseDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
                         </span>
                       </div>
                     )}
@@ -84,15 +93,24 @@ export default function MyBikesClient() {
 
                   {/* Add Service Button */}
                   <button
-                    onClick={() => router.push("/addservices")}
+                    onClick={() =>
+                      router.push(
+                        `/MyBikes/addservices/${bike.id}?bikeBrand=${bike.brand}&bikeModel=${bike.model}`
+                      )
+                    }
                     className="mt-4 w-full bg-red-600/20 hover:bg-red-600 border border-red-600 text-red-400 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group"
                   >
                     <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
                     <span>Add Service Detail</span>
                   </button>
 
-                  {/* Bottom accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Get Service Details Button */}
+                  <button
+                    onClick={() => router.push(`MyBikes/servicedetails/${bike.id}?bikeBrand=${bike.brand}&bikeModel=${bike.model}`)}
+                    className="mt-2 w-full bg-gray-800/50 hover:bg-gray-700 border border-gray-600 text-gray-300 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+                  >
+                    <span>🔧 Get Service Details</span>
+                  </button>
                 </div>
               </div>
             ))}

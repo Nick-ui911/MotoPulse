@@ -49,11 +49,14 @@ model Service {
   serviceDate     DateTime
   odometerReading Int?
   remarks         String?
-  createdAt       DateTime @default(now())
+
+  status    String   @default("Completed")
+  createdAt DateTime @default(now())
 
   bike          Bike           @relation(fields: [bikeId], references: [id], onDelete: Cascade)
   serviceCenter ServiceCenter? @relation(fields: [centerId], references: [id], onDelete: SetNull)
   items         ServiceItem[]
+  @@unique([bikeId, odometerReading])
 }
 
 model ServiceItem {
@@ -61,7 +64,6 @@ model ServiceItem {
   serviceId Int
   itemName  String
   cost      Float  @default(0.0)
-  status    String @default("Completed")
 
   service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 }

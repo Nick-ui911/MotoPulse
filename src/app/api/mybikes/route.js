@@ -13,7 +13,6 @@ export async function GET(req) {
     const bikes = await prisma.bike.findMany({
       where: { userId },
     });
-console.log(bikes);
     return NextResponse.json(bikes, { status: 200 });
   } catch (error) {
     console.error("Error fetching bikes:", error);
