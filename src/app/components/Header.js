@@ -31,7 +31,7 @@ export default function Header() {
     { name: "Profile", href: "/profile" },
     { name: "My Bikes", href: "/MyBikes" },
     { name: "Services", href: "/allservices" },
-    { name: "Reminders", href: "/Reminders" },
+    { name: "NextUp", href: "/Nextup" },
     { name: "WorkShops", href: "/WorkShops" },
   ];
 
