@@ -58,7 +58,7 @@ const CookiesPolicy = () => {
         backgroundSize: '40px 40px'
       }}></div>
       
-      <div className="relative z-10 container mx-auto px-6 py-12 max-w-4xl">
+      <div className="relative z-10 container mx-auto px-6 py-24 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-black bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent mb-4">

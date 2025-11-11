@@ -20,6 +20,9 @@ export async function middleware(req) {
   if (
     pathname === "/" ||
     pathname.startsWith("/login") ||
+    pathname.startsWith("/PrivacyPolicy") ||
+    pathname.startsWith("/Terms") ||
+    pathname.startsWith("/CookiesPolicy") ||
     pathname.startsWith("/reset-password") ||
     pathname.startsWith("/forgotPassword") ||
     pathname.startsWith("/api") ||

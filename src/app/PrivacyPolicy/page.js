@@ -68,7 +68,7 @@ const PrivacyPolicy = () => {
         backgroundSize: '40px 40px'
       }}></div>
       
-      <div className="relative z-10 container mx-auto px-6 py-12 max-w-5xl">
+      <div className="relative z-10 container mx-auto px-6 py-22 max-w-5xl">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent mb-4">

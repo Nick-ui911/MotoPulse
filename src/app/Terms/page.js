@@ -67,7 +67,7 @@ export default function TermsAndConditions() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <div className="relative bg-black overflow-hidden">
+      <div className="relative bg-black overflow-hidden py-14">
         <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-black to-red-900/30"></div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-red-700"></div>
         <div className="relative max-w-4xl mx-auto px-6 py-12">

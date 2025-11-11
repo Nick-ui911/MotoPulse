@@ -32,7 +32,7 @@ export default function Header() {
     { name: "My Bikes", href: "/MyBikes" },
     { name: "Services", href: "/allservices" },
     { name: "NextUp", href: "/Nextup" },
-    { name: "WorkShops", href: "/WorkShops" },
+    { name: "WorkShops", href: "/Workshops" },
   ];
 
   const handleLogout = async (e) => {
