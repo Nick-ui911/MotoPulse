@@ -35,7 +35,7 @@ export async function GET(req) {
   } catch (error) {
     console.error("Error fetching services:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: error.message, details: error },
       { status: 500 }
     );
   }
