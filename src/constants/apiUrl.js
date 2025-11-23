@@ -1,14 +1,25 @@
 // Environment-based URL configuration
-const isProduction = process.env.NODE_ENV === 'production';
+// For client-side components, we need to detect at runtime
+let BASE_URL, WEB_URL;
 
-// Production URLs - Update these with your actual production domain
-const PRODUCTION_API_URL = 'https://moto-pulse.vercel.app/api';
-const PRODUCTION_WEB_URL = 'https://moto-pulse.vercel.app';
+if (typeof window === 'undefined') {
+  // Server-side: use NODE_ENV
+  const isProduction = process.env.NODE_ENV === 'production';
+  BASE_URL = isProduction ? 'https://moto-pulse.vercel.app/api' : 'http://localhost:3000/api';
+  WEB_URL = isProduction ? 'https://moto-pulse.vercel.app' : 'http://localhost:3000';
+} else {
+  // Client-side: detect based on current hostname
+  const isProduction = window.location.hostname !== 'localhost' && 
+                       !window.location.hostname.includes('127.0.0.1') &&
+                       !window.location.hostname.includes('192.168');
+  
+  BASE_URL = isProduction 
+    ? 'https://moto-pulse.vercel.app/api' 
+    : `${window.location.protocol}//${window.location.host}/api`;
+  
+  WEB_URL = isProduction 
+    ? 'https://moto-pulse.vercel.app' 
+    : `${window.location.protocol}//${window.location.host}`;
+}
 
-// Development URLs
-const DEVELOPMENT_API_URL = 'http://localhost:3000/api';
-const DEVELOPMENT_WEB_URL = 'http://localhost:3000';
-
-// Export URLs based on environment
-export const BASE_URL = isProduction ? PRODUCTION_API_URL : DEVELOPMENT_API_URL;
-export const WEB_URL = isProduction ? PRODUCTION_WEB_URL : DEVELOPMENT_WEB_URL;
+export { BASE_URL, WEB_URL };
