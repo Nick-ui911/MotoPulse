@@ -8,6 +8,7 @@ export async function POST(req) {
   try {
     const { idToken } = await req.json();
 
+
     // ✅ Verify ID Token
     const decodedToken = await adminAuth.verifyIdToken(idToken);
     const email = decodedToken.email;
@@ -30,7 +31,7 @@ export async function POST(req) {
     const token = signJwt({ email: user.email });
 
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set({
       name: "token",
       value: token,

@@ -1,6 +1,13 @@
+import { adminAuth } from "@/lib/firebaseAdmin";
+import { signJwt } from "@/lib/jwt";
+import { prisma } from "@/lib/prisma";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+
 export async function POST(req) {
   try {
     const { idToken, PhotoUrl } = await req.json();
+    console.log(idToken);
 
     // Verify token
     const decoded = await adminAuth.verifyIdToken(idToken);

@@ -190,13 +190,7 @@ const handleGoogleLogin = async () => {
       setErrorMessage("Login failed. Please try again.");
     }
     
-    setShowErrorMessage(true);
-    
-    // Hide error after 3 seconds
-    setTimeout(() => {
-      setShowErrorMessage(false);
-    }, 3000);
-    
+ 
   } finally {
     setLoading(false);
   }
@@ -209,6 +203,7 @@ const handleGoogleSignup = async () => {
     
     const result = await signInWithPopup(auth, provider);
     const idToken = await result.user.getIdToken();
+    console.log(idToken);
     const { displayName, email, photoURL } = result.user;
 
     const response = await axios.post(
@@ -254,12 +249,7 @@ const handleGoogleSignup = async () => {
       setErrorMessage("Signup failed. Please try again.");
     }
     
-    setShowErrorMessage(true);
-    
-    // Hide error after 3 seconds
-    setTimeout(() => {
-      setShowErrorMessage(false);
-    }, 3000);
+
     
   } finally {
     setLoading(false);
