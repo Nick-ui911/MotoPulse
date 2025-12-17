@@ -276,7 +276,7 @@ const About = () => {
                   {/* Description */}
                   <p className="text-gray-400 text-lg leading-relaxed text-center group-hover:text-gray-300 transition-colors">
                     Because your bike deserves <span className="text-red-500 font-semibold">timely care</span>. Moto Pulse ensures you never
-                    miss a service, helping extend your bike's <span className="text-orange-500 font-semibold">life and performance</span>.
+                    miss a service, helping extend your bike&apos;s <span className="text-orange-500 font-semibold">life and performance</span>.
                   </p>
 
                   {/* Stats */}
@@ -301,7 +301,7 @@ const About = () => {
                       <div className="text-4xl">💬</div>
                       <div>
                         <p className="text-gray-300 italic text-sm mb-2">
-                          "Moto Pulse has completely transformed how I maintain my bike. No more missed services!"
+                        &quot;Moto Pulse has completely transformed how I maintain my bike. No more missed services!&quot;
                         </p>
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
