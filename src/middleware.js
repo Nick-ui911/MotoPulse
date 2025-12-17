@@ -25,6 +25,11 @@ export async function middleware(req) {
     pathname.startsWith("/CookiesPolicy") ||
     pathname.startsWith("/reset-password") ||
     pathname.startsWith("/forgotPassword") ||
+    pathname.startsWith("/about") ||
+    pathname.startsWith("/contact") ||
+    pathname.startsWith("/services") ||
+    pathname.startsWith("/support") ||
+    pathname.startsWith("/features") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon.ico") ||

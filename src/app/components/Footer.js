@@ -137,7 +137,7 @@ const Footer = () => {
             (link, index) => (
               <Link
                 key={link}
-                href={`#${link.toLowerCase()}`}
+                href={`/${link.toLowerCase()}`}
                 className="relative group text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
